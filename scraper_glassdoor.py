@@ -86,19 +86,18 @@ def save_information(jobs_result, job_info):
 # In[46]:
 
 
-def get_jobs(role):
+def get_jobs(role, num_jobs):
     #keyword = "data+scientist"
-    # url = f"https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword={role}&sc.keyword={role}&locT=&locId=&jobType="
-    url = f"https://www.glassdoor.com/Job/brazil-{role}-SRCH_IL.0,6_IN36_KO7,25.htm"
+    url = f"https://www.glassdoor.com/Job/jobs.htm?suggestCount=0&suggestChosen=false&clickSource=searchBtn&typedKeyword={role}&sc.keyword={role}&locT=&locId=&jobType="
+    #url = f"https://www.glassdoor.com/Job/brazil-{role}-SRCH_IL.0,6_IN36_KO7,25.htm"
     driver = webdriver.Chrome()
     driver.get(url)
     try:
         jobs_result = []
-        num_jobs = 5
         WebDriverWait(driver, 10).until(
             EC.visibility_of_element_located((By.CLASS_NAME, "JobsList_jobListItem__JBBUV"))
         )
-        verbose = True
+        verbose = False
         jobs_list = driver.find_elements_by_class_name("JobsList_jobListItem__JBBUV")
         for job in jobs_list:
             print("Progress: {}".format("" + str(len(jobs_result)) + "/" + str(num_jobs)))
